@@ -1,49 +1,70 @@
 {
-   "models":[
+   "models": [
       {
-         "name":"Stable Diffusion XL Turbo",
-         "slug":"stabilityai/sdxl-turbo",
-         "bestFor":"Photorealismo rápido, mockups e protótipos",
-         "pros":"Extremamente rápido, ideal para feedback instantâneo",
-         "cons":"Menos detalhado que o modelo base",
-         "keywords":[
-            "photo",
-            "realistic",
-            "fast",
-            "mockup",
-            "portrait"
-         ],
-         "routingHints":"Use quando o usuário pedir algo muito fotográfico ou precisar de rapidez"
-      },
-      {
-         "name":"Stable Diffusion XL Base",
-         "slug":"stability-ai/sdxl",
-         "bestFor":"Arte detalhada, fantasy, capas de livro",
-         "pros":"Maior qualidade e riqueza de detalhes",
-         "cons":"Mais pesado e mais lento",
-         "keywords":[
+         "name": "Stable Diffusion XL Base",
+         "slug": "stability-ai/sdxl",
+         "bestFor": "Arte detalhada, fantasy, capas de livro",
+         "pros": "Maior qualidade e riqueza de detalhes",
+         "cons": "Mais pesado e mais lento",
+         "keywords": [
             "fantasy",
             "detailed",
             "illustration",
             "cover",
             "painting"
          ],
-         "routingHints":"Use quando o prompt sugerir artes elaboradas ou contextos criativos complexos"
+         "routingHints": "Use quando o prompt sugerir artes elaboradas ou contextos criativos complexos",
+         "providers": [
+            {
+               "name": "NebiusAI",
+               "endpoint": "nebius/v1/images/generations"
+            }
+         ],
+         "response": {
+            "url": {
+               "field": "data[0].url"
+            },
+            "base64": {
+               "field": "b64_json"
+            }
+         }
       },
       {
-         "name":"FLUX Schnell",
-         "slug":"black-forest-labs/flux-schnell",
-         "bestFor":"Estilo moderno, arte conceitual, cartazes e design gráfico",
-         "pros":"Rápido e versátil",
-         "cons":"Outputs podem ser inconsistentes",
-         "keywords":[
+         "name": "FLUX Schnell",
+         "slug": "black-forest-labs/flux-schnell",
+         "bestFor": "Estilo moderno, arte conceitual, cartazes e design gráfico",
+         "pros": "Rápido e versátil",
+         "cons": "Outputs podem ser inconsistentes",
+         "keywords": [
             "concept",
             "poster",
             "design",
             "cinematic",
             "stylized"
          ],
-         "routingHints":"Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais"
+         "routingHints": "Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais",
+         "providers": [
+            {
+               "name": "TogheterAI",
+               "endpoint": "together/v1/images/generations"
+            },
+            {
+               "name": "NebiusAI",
+               "endpoint": "nebius/v1/images/generations"
+            },
+            {
+               "name": "Fal-AI",
+               "endpoint": "fal-ai/fal-ai/flux/schnell"
+            }
+         ],
+         "response": {
+            "url": {
+               "field": "url"
+            },
+            "base64": {
+               "field": "b64_json"
+            }
+         }
       }
    ]
 }
