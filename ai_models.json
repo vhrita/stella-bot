@@ -28,15 +28,6 @@
       "routingHints": "Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais"
     },
     {
-      "name": "Waifu Diffusion",
-      "slug": "hakurei/waifu-diffusion",
-      "bestFor": "Anime, manga, chibi, estética japonesa",
-      "pros": "Outputs consistentes em estilo anime",
-      "cons": "Limitado a estética anime, não serve para outros estilos",
-      "keywords": ["anime", "manga", "waifu", "chibi"],
-      "routingHints": "Use quando o prompt contiver termos de anime, waifu ou estética japonesa"
-    },
-    {
       "name": "LCM SDXL",
       "slug": "latent-consistency/lcm-lora-sdxl",
       "bestFor": "Protótipos rápidos, sketches e variações criativas leves",
