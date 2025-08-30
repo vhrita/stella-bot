@@ -26,6 +26,6 @@
       "cons": "Outputs podem ser inconsistentes",
       "keywords": ["concept", "poster", "design", "cinematic", "stylized"],
       "routingHints": "Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais"
-    },
+    }
   ]
 }
