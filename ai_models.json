@@ -27,14 +27,5 @@
       "keywords": ["concept", "poster", "design", "cinematic", "stylized"],
       "routingHints": "Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais"
     },
-    {
-      "name": "LCM SDXL",
-      "slug": "latent-consistency/lcm-lora-sdxl",
-      "bestFor": "Protótipos rápidos, sketches e variações criativas leves",
-      "pros": "Muito rápido, gera imagens em poucos steps",
-      "cons": "Menos refinado que modelos mais pesados",
-      "keywords": ["sketch", "fast", "concept", "draft"],
-      "routingHints": "Use quando o usuário pedir algo rápido, rascunho ou protótipo"
-    }
   ]
 }
