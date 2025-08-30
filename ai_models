@@ -1,0 +1,49 @@
+{
+  "models": [
+    {
+      "name": "Stable Diffusion XL Turbo",
+      "slug": "stabilityai/sdxl-turbo",
+      "bestFor": "Photorealismo rápido, mockups e protótipos",
+      "pros": "Extremamente rápido, ideal para feedback instantâneo",
+      "cons": "Menos detalhado que o modelo base",
+      "keywords": ["photo", "realistic", "fast", "mockup", "portrait"],
+      "routingHints": "Use quando o usuário pedir algo muito fotográfico ou precisar de rapidez"
+    },
+    {
+      "name": "Stable Diffusion XL Base",
+      "slug": "stability-ai/sdxl",
+      "bestFor": "Arte detalhada, fantasy, capas de livro",
+      "pros": "Maior qualidade e riqueza de detalhes",
+      "cons": "Mais pesado e mais lento",
+      "keywords": ["fantasy", "detailed", "illustration", "cover", "painting"],
+      "routingHints": "Use quando o prompt sugerir artes elaboradas ou contextos criativos complexos"
+    },
+    {
+      "name": "FLUX Schnell",
+      "slug": "black-forest-labs/FLUX.1-schnell",
+      "bestFor": "Estilo moderno, arte conceitual, cartazes e design gráfico",
+      "pros": "Rápido e versátil",
+      "cons": "Outputs podem ser inconsistentes",
+      "keywords": ["concept", "poster", "design", "cinematic", "stylized"],
+      "routingHints": "Use quando o prompt mencionar design moderno, pôsteres ou estilos experimentais"
+    },
+    {
+      "name": "Waifu Diffusion",
+      "slug": "hakurei/waifu-diffusion",
+      "bestFor": "Anime, manga, chibi, estética japonesa",
+      "pros": "Outputs consistentes em estilo anime",
+      "cons": "Limitado a estética anime, não serve para outros estilos",
+      "keywords": ["anime", "manga", "waifu", "chibi"],
+      "routingHints": "Use quando o prompt contiver termos de anime, waifu ou estética japonesa"
+    },
+    {
+      "name": "LCM SDXL",
+      "slug": "latent-consistency/lcm-lora-sdxl",
+      "bestFor": "Protótipos rápidos, sketches e variações criativas leves",
+      "pros": "Muito rápido, gera imagens em poucos steps",
+      "cons": "Menos refinado que modelos mais pesados",
+      "keywords": ["sketch", "fast", "concept", "draft"],
+      "routingHints": "Use quando o usuário pedir algo rápido, rascunho ou protótipo"
+    }
+  ]
+}
