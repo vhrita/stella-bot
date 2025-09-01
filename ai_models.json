@@ -22,7 +22,7 @@
          ],
          "response": {
             "url": {
-               "field": "data[0].url"
+               "field": "url"
             },
             "base64": {
                "field": "b64_json"
