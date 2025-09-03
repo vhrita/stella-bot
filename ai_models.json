@@ -65,6 +65,46 @@
                "field": "b64_json"
             }
          }
+      },
+      {
+         "name": "Qwen-Image",
+         "slug": "Qwen/Qwen-Image",
+         "bestFor": "Renderização precisa de texto (EN/ZH), pôsteres, placas, banners, layouts com tipografia e edições.",
+         "pros": "Excelente em texto dentro da imagem; bom equilíbrio entre geração geral e edição; entende layout/semântica.",
+         "cons": "Para prompts não focados em texto pode exigir ajustes de parâmetros para fotorealismo.",
+         "keywords": [
+            "text",
+            "typography",
+            "poster",
+            "signage",
+            "label",
+            "flyer",
+            "english",
+            "chinese",
+            "editing",
+            "inpainting",
+            "layout",
+            "graphic design"
+         ],
+         "routingHints": "Priorize quando o prompt pedir texto legível na imagem (placas, pôsteres, banners, rótulos) ou edição com texto.",
+         "providers": [
+            {
+               "name": "HuggingfaceRouter-FAL",
+               "endpoint": "fal-ai/fal-ai/qwen-image"
+            },
+            {
+               "name": "HuggingfaceRouter-Replicate",
+               "endpoint": "replicate/v1/models/qwen/qwen-image/predictions"
+            }
+         ],
+         "response": {
+            "url": {
+               "field": "url"
+            },
+            "base64": {
+               "field": "b64_json"
+            }
+         }
       }
    ]
 }
