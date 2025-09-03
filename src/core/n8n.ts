@@ -8,6 +8,7 @@ interface ImaginePayload {
   prompt: string;
   userId: string;
   channelId: string;
+  isSuperUser?: boolean; // Flag para indicar se é super user
 }
 
 interface ImageResponse {
@@ -105,7 +106,10 @@ export async function generateImage(payload: ImaginePayload): Promise<ProcessedI
   try {
     const credentials = Buffer.from(`${n8nUsername}:${n8nPassword}`).toString('base64');
 
-    logger.log(`Enviando prompt para o n8n: "${payload.prompt}"`);
+    const logMessage = payload.isSuperUser 
+      ? `👑 Super User enviando prompt para o n8n: "${payload.prompt}"` 
+      : `Enviando prompt para o n8n: "${payload.prompt}"`;
+    logger.log(logMessage);
     
     // AbortController para controlar timeout de 2 minutos
     const controller = new AbortController();

@@ -2,6 +2,7 @@ import { SlashCommandBuilder, CommandInteraction, AttachmentBuilder, EmbedBuilde
 import { generateImage } from '../core/n8n.js';
 import { logger } from '../core/logger.js';
 import { createErrorEmbed, createImageEmbed } from '../core/embeds.js';
+import { isSuperUser } from '../core/utils.js';
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
@@ -50,13 +51,18 @@ export const command = {
 
     const prompt = interaction.options.getString('prompt', true);
     const { user, channelId } = interaction;
+    const isUserSuper = isSuperUser(user.id);
     let hasReplied = false;
 
     try {
       // Responder imediatamente com mensagem de carregamento
+      const loadingTitle = isUserSuper 
+        ? '👑✨ Super User detectado - Stella criando sem limites...' 
+        : '✨🎨 Stella está criando sua imagem...';
+        
       const loadingEmbed = new EmbedBuilder()
-        .setColor(0xFFD700)
-        .setTitle('✨🎨 Stella está criando sua imagem...')
+        .setColor(isUserSuper ? 0xFF6B35 : 0xFFD700) // Cor diferente para super users
+        .setTitle(loadingTitle)
         .setDescription(`**Prompt:** ${prompt}\n\n🌟 *A magia está acontecendo, aguarde um momento...*`)
         .setTimestamp()
         .setFooter({ text: `Solicitado por ${user.username}`, iconURL: user.displayAvatarURL() });
@@ -68,6 +74,7 @@ export const command = {
         prompt,
         userId: user.id,
         channelId,
+        isSuperUser: isUserSuper,
       });
 
       if (!imageData) {
@@ -86,11 +93,16 @@ export const command = {
         return;
       }
 
-      // Verificar se houve erro de violação de diretrizes
-      if (imageData.error?.type === 'content_policy_violation') {
+      // Verificar se houve erro de violação de diretrizes (ignorar para super users)
+      if (imageData.error?.type === 'content_policy_violation' && !isUserSuper) {
         const policyEmbed = createErrorEmbed(`🚫 **Conteúdo rejeitado pelas diretrizes**\n\n${imageData.error.reason}`);
         await interaction.editReply({ embeds: [policyEmbed] });
         return;
+      }
+      
+      // Se for super user e houve violação, registrar no log mas continuar
+      if (imageData.error?.type === 'content_policy_violation' && isUserSuper) {
+        logger.log(`Super user ${user.id} bypass: Violação de diretrizes ignorada - ${imageData.error.reason}`);
       }
 
       let embed;

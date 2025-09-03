@@ -2,6 +2,7 @@ import { Client, Collection, GatewayIntentBits, Events, Interaction } from 'disc
 import { logger } from './logger.js';
 import { command as imagineCommand } from '../commands/imagine.js';
 import { createErrorEmbed, createWarningEmbed } from './embeds.js';
+import { isSuperUser } from './utils.js';
 
 const restrictToChannelId = process.env.RESTRICT_TO_CHANNEL_ID;
 
@@ -36,12 +37,19 @@ client.on(Events.InteractionCreate, async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   // --- VERIFICAÇÃO DE CANAL (OPCIONAL) ---
-  if (restrictToChannelId && interaction.channelId !== restrictToChannelId) {
+  const isUserSuper = isSuperUser(interaction.user.id, false); // Não logar aqui, só nos bypasses
+  
+  if (restrictToChannelId && interaction.channelId !== restrictToChannelId && !isUserSuper) {
     const warningEmbed = createWarningEmbed(
       `A magia de Stella só pode ser canalizada no lugar certo! Por favor, use meus comandos no canal <#${restrictToChannelId}>.`
     );
     await interaction.reply({ embeds: [warningEmbed], ephemeral: true });
     return;
+  }
+  
+  // Log quando super user bypassa restrição de canal
+  if (restrictToChannelId && interaction.channelId !== restrictToChannelId && isUserSuper) {
+    logger.log(`👑 Super User ${interaction.user.id} bypass: Restrição de canal ignorada`);
   }
   // --- FIM DA VERIFICAÇÃO ---
 
