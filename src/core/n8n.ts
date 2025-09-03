@@ -27,7 +27,8 @@ interface ImageResponse {
   provider: string;
   type: 'url' | 'base64';
   meta: {
-    index: number;
+    index?: number;
+    reason?: string; // Campo para motivo de erro/rejeição
   };
 }
 
@@ -47,6 +48,10 @@ interface ProcessedImageData {
     };
     prompt: string;
     requestId: string;
+  };
+  error?: {
+    type: 'content_policy_violation' | 'api_error';
+    reason: string;
   };
 }
 
@@ -144,6 +149,33 @@ export async function generateImage(payload: ImaginePayload): Promise<ProcessedI
     if (!responseData) {
       logger.error('Resposta vazia do n8n');
       return null;
+    }
+
+    // Verificar se há erro de violação de diretrizes
+    if (responseData.meta?.reason) {
+      logger.error('Prompt rejeitado pela API:', responseData.meta.reason);
+      
+      return {
+        imageBuffer: null,
+        type: 'url',
+        metadata: {
+          model: responseData.model || 'unknown',
+          provider: responseData.provider || 'unknown',
+          executionTime: executionTimeSeconds,
+          parameters: {
+            size: responseData.params?.size || 'unknown',
+            steps: responseData.params?.steps || 0,
+            cfg: responseData.params?.cfg || 0,
+            seed: responseData.params?.seed || null,
+          },
+          prompt: responseData.prompt || payload.prompt,
+          requestId: responseData.requestId || '',
+        },
+        error: {
+          type: 'content_policy_violation',
+          reason: responseData.meta.reason,
+        },
+      };
     }
 
     // Validar estrutura mínima necessária

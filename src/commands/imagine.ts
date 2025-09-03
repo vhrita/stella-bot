@@ -86,6 +86,13 @@ export const command = {
         return;
       }
 
+      // Verificar se houve erro de violação de diretrizes
+      if (imageData.error?.type === 'content_policy_violation') {
+        const policyEmbed = createErrorEmbed(`🚫 **Conteúdo rejeitado pelas diretrizes**\n\n${imageData.error.reason}`);
+        await interaction.editReply({ embeds: [policyEmbed] });
+        return;
+      }
+
       let embed;
       let files: AttachmentBuilder[] = [];
 
