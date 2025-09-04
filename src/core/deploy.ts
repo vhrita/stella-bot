@@ -1,22 +1,32 @@
 import 'dotenv/config';
 import { REST, Routes } from 'discord.js';
 import { logger } from './logger.js';
-import { command as imagineCommand } from '../commands/imagine.js';
+import { buildImagineCommand, buildImagineProCommand } from './command-builder.js';
+import { command as modelsCommand } from '../commands/models.js';
+import { config } from './config.js';
 
 export async function deployCommands() {
-  const token = process.env.DISCORD_TOKEN;
-  const appId = process.env.DISCORD_APP_ID;
-  const guildId = process.env.DEV_GUILD_ID;
+  const token = config.DISCORD_TOKEN;
+  const appId = config.DISCORD_APP_ID;
+  const guildId = config.DEV_GUILD_ID;
 
-  if (!token || !appId) {
-    logger.error('Erro: As variáveis de ambiente DISCORD_TOKEN e DISCORD_APP_ID são obrigatórias.');
-    process.exit(1);
-  }
-
-  const commands = [imagineCommand.data.toJSON()];
-  const rest = new REST({ version: '10' }).setToken(token);
+  // Validação já é feita automaticamente pelo config
 
   try {
+    logger.log('🔄 Construindo comandos dinamicamente...');
+    
+    // Construir comandos dinamicamente com modelos atuais
+    const imagineCommand = await buildImagineCommand();
+    const imagineProCommand = await buildImagineProCommand();
+
+    const commands = [
+      imagineCommand.toJSON(),
+      imagineProCommand.toJSON(),
+      modelsCommand.data.toJSON()
+    ];
+
+    const rest = new REST({ version: '10' }).setToken(token);
+
     logger.log(`Registrando ${commands.length} slash command(s)...`);
 
     let route;

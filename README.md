@@ -12,11 +12,31 @@ Este projeto é uma homenagem mágica ao grupo de Discord **WINX**, um lugar ond
 
 ## ⚙️ Funcionalidades Mágicas
 
-Atualmente, a principal magia de Stella é dar vida à imaginação.
+Stella possui duas formas de canalizar a magia da criação:
+
+### 🎨 Comandos de Geração de Imagens
 
 -   `/imagine [prompt]`
-    -   **Descrição:** Sussurre uma ideia para a Stella, e ela canalizará a energia do Sol para criar uma imagem única a partir do seu texto.
-    -   **Como funciona:** O comando se conecta a um fluxo de trabalho n8n, que cuida da geração da imagem via IA e a retorna diretamente para o canal.
+    -   **Descrição:** A magia clássica da Stella! Crie imagens a partir de texto usando N8N.
+    -   **Como funciona:** Conecta-se ao fluxo n8n para geração via Hugging Face e outros providers.
+    -   **Ideal para:** Uso geral e quando o serviço local estiver offline.
+
+-   `/imagine-pro [prompt] [quality] [size]`
+    -   **Descrição:** Geração avançada com IA local + fallback automático para N8N.
+    -   **Qualidade:** Rápido (20 steps), Equilibrado (50 steps), Alta Qualidade (80 steps)
+    -   **Tamanhos:** 512x512, 768x768, 1024x1024, paisagem e retrato
+    -   **Como funciona:** Tenta primeiro o serviço local (melhor qualidade), com fallback para N8N.
+    -   **Ideal para:** Quando você quer a melhor qualidade possível.
+
+-   `/imagine-live [prompt] [quality] [size]`
+    -   **Descrição:** Geração com progresso em tempo real via WebSocket + cancelamento!
+    -   **Recursos exclusivos:** 
+      - 📊 Progresso em tempo real (0-100%)
+      - 🛑 Botão de cancelamento durante a geração
+      - 📋 Exibe Task ID para rastreamento
+      - 🔄 Atualização automática via WebSocket
+    -   **Como funciona:** Conecta via WebSocket para mostrar progresso da geração local.
+    -   **Ideal para:** Acompanhar gerações longas e ter controle total sobre o processo.
 
 ## 🛠️ Ingredientes Mágicos (Stack)
 

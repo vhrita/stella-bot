@@ -2,15 +2,16 @@ import 'dotenv/config';
 import { logger } from './core/logger.js';
 import { deployCommands } from './core/deploy.js';
 import { client } from './core/client.js';
+import { config } from './core/config.js';
+import { ErrorHandler } from './core/error-handler.js';
 
 async function main() {
+  // Configurar handlers globais de erro
+  ErrorHandler.setupGlobalHandlers();
+  
   logger.log('A mágica de Stella está começando...');
 
-  const token = process.env.DISCORD_TOKEN;
-  if (!token) {
-    logger.error('A variável de ambiente DISCORD_TOKEN é obrigatória.');
-    process.exit(1);
-  }
+  const token = config.DISCORD_TOKEN;
 
   // 1. Registrar os slash commands na API do Discord
   await deployCommands();
@@ -20,6 +21,6 @@ async function main() {
 }
 
 main().catch(error => {
-  logger.error('Um erro fatal ocorreu:', error);
+  logger.fatal('Um erro fatal ocorreu durante a inicialização:', error);
   process.exit(1);
 });

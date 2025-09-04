@@ -1,24 +1,24 @@
 import { Client, Collection, GatewayIntentBits, Events, Interaction } from 'discord.js';
 import { logger } from './logger.js';
 import { command as imagineCommand } from '../commands/imagine.js';
+import { command as imagineProCommand } from '../commands/imagine-pro.js';
+import { command as modelsCommand } from '../commands/models.js';
 import { createErrorEmbed, createWarningEmbed } from './embeds.js';
 import { isSuperUser } from './utils.js';
+import { config } from './config.js';
 
-const restrictToChannelId = process.env.RESTRICT_TO_CHANNEL_ID;
+const restrictToChannelId = config.RESTRICT_TO_CHANNEL_ID;
 
 // Estendendo o Client para incluir a coleção de comandos
 class StellaClient extends Client {
   commands: Collection<string, any>;
 
   constructor() {
-    super({
-      intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages, // Necessário para ler o ID do canal
-      ],
-    });
+    super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
     this.commands = new Collection();
     this.commands.set(imagineCommand.data.name, imagineCommand);
+    this.commands.set(imagineProCommand.data.name, imagineProCommand);
+    this.commands.set(modelsCommand.data.name, modelsCommand);
   }
 }
 
