@@ -92,22 +92,22 @@ export function createImageEmbed(username: string, userAvatarUrl: string, metada
     },
     {
       name: `📐 Tamanho`,
-      value: metadata.parameters.size,
+      value: metadata.parameters?.size || 'N/A',
       inline: true
     },
     {
       name: `🔧 Steps`,
-      value: metadata.parameters.steps.toString(),
+      value: metadata.parameters?.steps?.toString() || 'N/A',
       inline: true
     },
     {
       name: `⚙️ CFG`,
-      value: metadata.parameters.cfg.toString(),
+      value: metadata.parameters?.cfg?.toString() || 'N/A',
       inline: true
     },
     {
       name: `🎲 Seed`,
-      value: metadata.parameters.seed ? metadata.parameters.seed.toString() : 'Aleatório',
+      value: metadata.parameters?.seed ? metadata.parameters.seed.toString() : 'Aleatório',
       inline: true
     }
   ];

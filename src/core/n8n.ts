@@ -1,8 +1,9 @@
 import { logger } from './logger.js';
+import { config } from './config.js';
 
-const n8nUrl = process.env.N8N_IMAGINE_URL;
-const n8nUsername = process.env.N8N_USERNAME;
-const n8nPassword = process.env.N8N_PASSWORD;
+const n8nUrl = config.N8N_IMAGINE_URL;
+const n8nUsername = config.N8N_USERNAME;
+const n8nPassword = config.N8N_PASSWORD;
 
 interface ImaginePayload {
   prompt: string;
@@ -57,7 +58,7 @@ interface ProcessedImageData {
 }
 
 function handleHttpError(response: Response, executionTimeSeconds: number): void {
-  let errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`;
+  const errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`;
   
   logger.error(`Erro na chamada ao n8n após ${executionTimeSeconds.toFixed(2)}s: ${errorMessage}`);
   
