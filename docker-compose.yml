@@ -1,0 +1,17 @@
+services:
+  stella-bot:
+    build: .
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      # Para logs persistentes (opcional)
+      - ./logs:/app/logs
+    networks:
+      - stella-network
+
+networks:
+  stella-network:
+    driver: bridge
