@@ -156,6 +156,16 @@ export async function generateImage(payload: ImaginePayload): Promise<ProcessedI
       return null;
     }
 
+    // Tratar resposta inconsistente: aceitar tanto objeto quanto array
+    // Em caso de array, o objeto sempre estará no primeiro item
+    if (Array.isArray(responseData) && responseData.length > 0) {
+      logger.log('Resposta do n8n veio como array, extraindo primeiro item');
+      responseData = responseData[0];
+    } else if (Array.isArray(responseData) && responseData.length === 0) {
+      logger.error('Resposta do n8n veio como array vazio');
+      return null;
+    }
+
     // Verificar se há erro de violação de diretrizes
     if (responseData.meta?.reason) {
       logger.error('Prompt rejeitado pela API:', responseData.meta.reason);
